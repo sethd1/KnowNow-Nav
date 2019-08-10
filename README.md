@@ -16,7 +16,7 @@ Goals
 
    Populate a knowledge base that _defines_ patient cohorts and insights relevant to them by parsing &quot;open&quot; patient discussion forums.
    
-   **Assignment Posted**: Google Drive/Shared with me/KnowNowVolunteer/#software-/Week 1
+   **Assignment Posted**: Google Drive/Shared with me/KnowNowVolunteer/#software/Week 1
 
    1. Select appropriate patient cohorts&#39; sites. Here are some examples:
 
