@@ -2,7 +2,7 @@
 ## Software
 Our goal for this project is to create a prototype website/application search engine. 
 
-**Implementers** : Joshua Costa, Mauricio Lomeli, Hermain Hanif, Jennifer Kwon
+**Implementers** : Joshua Costa, Mauricio Lomeli, Hermain Hanif, Shiyu Qiu, Jennifer Kwon, Anne Wang, Derek Eijansantos
 
 **Email** : [mjlomeli@uci.edu](mailto:mjlomeli@uci.edu)
 
