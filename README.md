@@ -20,8 +20,8 @@ Goals
 
    1. Select appropriate patient cohorts&#39; sites. Here are some examples:
 
-      - [NCCN guidelines for breast cancer](https://knownow-group.slack.com/team/UK1BN6EUT)
-      - [NCI](https://knownow-group.slack.com/team/UK1BN6EUT)
+      - [NCCN guidelines for breast cancer](https://www.nccn.org/patients/guidelines/breast-invasive/4/)
+      - [NCI](https://www.cancer.gov/types/breast)
       - [FDA](https://open.fda.gov/)
       - [Oncotype DX](https://www.oncotypeiq.com/en-US/breast-cancer/healthcare-professionals/oncotype-dx-breast-recurrence-score/about-the-test)
       - [Lymph Node Status](https://ww5.komen.org/BreastCancer/LymphNodeStatusandStaging.html)
