@@ -102,3 +102,11 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# JetBrains Folders
+.idea/
+.idea
+/.idea
+.git
+.git/
+/.git
