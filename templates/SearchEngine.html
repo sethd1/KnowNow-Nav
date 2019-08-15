@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Search Engine</title>
+  <style>
+span.small {
+  line-height: 1.5;
+  font-family: arial, sans-serif;
+  font-size: small;
+  text-align: left;
+  padding: 0px;
+  display: inline-block;
+}
+
+h3.big {
+  font-family: arial, sans-serif;
+  line-height: 1.3;
+  font-size: 19px;
+  display: inline-block;
+  font-weight: normal;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+
+}
+    div.link{
+      color:  steelblue;
+      font-style: normal;
+    }
+    div.results{
+      align-content: normal;
+      alignment: left;
+      margin-top: 10px;
+      margin-left: 20px;
+      margin-bottom: 10px;
+      margin-right: 20px;
+    }
+	.SearchBar {
+      margin-left: 20px;
+      height: 25px;
+      width: 200px;
+}
+
+</style>
+</head>
+
+<body>
+<p align="left">&nbsp;</p>
+<p align="left">
+<form action="http://127.0.0.1:5000/form" method="post" id="search_form" name="search_form">
+  <strong>
+    <input class="SearchBar" type="text" name="search_field" id="search_field"/>
+    <input type="submit" name="search_button" id="search_button" value="Enter" onclick=""/>
+  </strong>
+</form>
+</p>
+    {% for post in posts %}
+      <div class="results">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+        <!-- <a href="{{ url_for('home', filename=post.path) }}"> for files -->
+        <a href="{{ post.path }}">
+        <h3> {{ post.title }} </h3>
+          <div> {{ post.url }} </div>
+          </a>
+          	<div>
+              <span>
+            	{{ post.author }}
+            	<b>{{ post.content }}</b>
+            	{{ post.date }}
+              </span>
+        	</div>
+      </div>
+    {% endfor %}
+<br>
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  </ul>
+</nav>
+<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
