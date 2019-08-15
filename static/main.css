@@ -1,0 +1,10 @@
+.mainContainer {
+    margin: 100px auto;
+    height: 60%;
+    width: 90%;
+    text-align: center;
+}
+
+#submitButton {
+    margin: 10px;
+}
