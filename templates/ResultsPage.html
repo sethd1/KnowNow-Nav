@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="UTF-8">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style type="text/css">
+	#tabing {
+		padding-right: 5px;
+	}
+    #info {
+	position: absolute;
+	left: 27px;
+	top: 264px;
+	width: 296px;
+	height: 439px;
+	z-index: 1;
+}
+    #results {
+	position: absolute;
+	left: 338px;
+	top: 265px;
+	width: 790px;
+	height: 441px;
+	z-index: 2;
+}
+    #ad1 {
+	position: absolute;
+	left: 1156px;
+	top: 269px;
+	width: 284px;
+	height: 195px;
+	z-index: 3;
+}
+    #ad2 {
+	position: absolute;
+	left: 1157px;
+	top: 481px;
+	width: 297px;
+	height: 129px;
+	z-index: 4;
+}
+    #ad3 {
+	position: absolute;
+	left: 1158px;
+	top: 619px;
+	width: 295px;
+	height: 90px;
+	z-index: 5;
+}
+    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>KnowKnow</title>
+</head>
+
+<body>
+<div id="info">
+<div>Tell us about your cancer <br />so we can refine our results.</div>
+<br />
+<div>Stage:</div>
+<br  />
+<div>Histology:</div>
+<br  />
+<div>Previous treatment:</div>
+</div>
+<div id="results">
+
+    {% for post in posts %}
+      <div class="results">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+        <!-- <a href="{{ url_for('home', filename=post.path) }}"> for files -->
+        <a href="{{ post.path }}">
+        <h3> {{ post.title }} </h3>
+          <div> {{ post.url }} </div>
+          </a>
+          	<div>
+              <span>
+            	{{ post.author }}
+            	<b>{{ post.content }}</b>
+            	{{ post.date }}
+              </span>
+        	</div>
+      </div>
+    {% endfor %}
+<br>
+
+</div>
+<div id="ad1"><img src="ad1.JPG" width="242" height="252" /></div>
+<div id="ad2"><img src="ad2.JPG" width="248" height="108" /></div>
+<div id="ad3"><img src="ad3.JPG" width="243" height="148" /></div>
+<img sr
+<img src="knownowimg.JPG" width="532" height="144" />
+<strong><font size="+5">Breast Cancer</font></strong>
+<div>
+
+<form action="http://127.0.0.1:5000/form" method="get" id="search_form" name="search_form">
+<label id="tabing"> Side effects : Heart disease </textarea>
+<select name="query">
+	<option value="treatments" > Treatments </option>
+    <option value="side effects" > Side Effects </option>
+    <option value="recurrence" > Recurrence </option>
+    <option value="referral" > Referral </option>
+    <option value="support" > Support </option>
+</select>
+<input type="submit" name="submit2" id="submit2" value="Submit" onclick=""/> </form>
+<div id="sideinfo">
+ 
+</div>
+<div id="results"></div>
+<div id="ad1"></div>
+<div id="ad2"></div>
+<div id="ad3"></div>
+</div>
+<div></div>
+
+</body>
+</html>
