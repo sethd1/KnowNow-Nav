@@ -1,6 +1,6 @@
 # !/usr/bin/env python
 
-"""Flask_driver
+"""flaskdriver
 
 Connects Cohort information from the spreadsheets with the front-end.
 """
