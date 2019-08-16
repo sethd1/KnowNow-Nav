@@ -86,15 +86,17 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
         <!-- <a href="{{ url_for('home', filename=post.path) }}"> for files -->
-        <a href="{{ post.path }}">
-        <h3> {{ post.title }} </h3>
+        <a href="{{ post.url }}">
+        <h3> {{ post.topic }} </h3>
           <div> {{ post.url }} </div>
           </a>
           	<div>
               <span>
-            	{{ post.author }}
-            	<b>{{ post.content }}</b>
-            	{{ post.date }}
+                  <b>{{ post.volunteers }}</b>
+              <br>
+            	{{ post.insight }}
+                  <br>
+            	{{ post.cohort }}
               </span>
         	</div>
       </div>
@@ -105,21 +107,18 @@
 <div id="ad1"><img src="ad1.JPG" width="242" height="252" /></div>
 <div id="ad2"><img src="ad2.JPG" width="248" height="108" /></div>
 <div id="ad3"><img src="ad3.JPG" width="243" height="148" /></div>
-<img sr
 <img src="knownowimg.JPG" width="532" height="144" />
 <strong><font size="+5">Breast Cancer</font></strong>
 <div>
 
 <form action="http://127.0.0.1:5000/form" method="get" id="search_form" name="search_form">
-<label id="tabing"> Side effects : Heart disease </textarea>
+    <label id="tabing"> Side effects : Heart disease </label>
 <select name="query">
-	<option value="treatments" > Treatments </option>
-    <option value="side effects" > Side Effects </option>
-    <option value="recurrence" > Recurrence </option>
-    <option value="referral" > Referral </option>
-    <option value="support" > Support </option>
+	<option value="84 yr old Mom, Stage 2, Lymph node, CHEMO normal?" > 84 yr old Mom, Stage 2, Lymph node, CHEMO normal? </option>
+    <option value="Confused as why everyone seems to have surgery first" > Confused as why everyone seems to have surgery first </option>
+    <option value="Chemotherapy for my Mom at Stage II-B, how to ease the pain?" > Chemotherapy for my Mom at Stage II-B, how to ease the pain? </option>
 </select>
-<input type="submit" name="submit2" id="submit2" value="Submit" onclick=""/> </form>
+<input type="submit" name="search_button" id="search_button" value="Enter" onclick=""/> </form>
 <div id="sideinfo">
  
 </div>

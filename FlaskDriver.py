@@ -7,7 +7,7 @@ that makes sense on its own, separated from the rest by a newline.
 """
 
 from pathlib import Path
-from flask import Flask, render_template, url_for, redirect, request
+from flask import Flask, render_template, url_for, redirect, request, session
 from Spreadsheet import Spreadsheet
 
 PATH = Path.cwd()
@@ -42,11 +42,6 @@ app.config["DEBUG"] = True
 sheet = Spreadsheet(DEFAULT_SPREADSHEET, NORM_HEADERS)
 
 
-def normalizeDict(items):
-    dictionary = {}
-    for
-
-
 @app.route("/")
 @app.route("/home")
 def home():
@@ -56,25 +51,17 @@ def home():
 @app.route('/form', methods=['GET', 'POST'])
 def form():
     if request.method == 'POST':
-        query = request.form('submit')
-        if query is not None:
-            return redirect(url_for('search', query=query))
+        query = request.form('query')
     else:
-        query = request.args.get('search_field')
-        if query is not None:
-            return redirect(url_for('search', query=query))
-
-
-@app.route('/search/<string:query>')
-def search(query):
-    post = sheet[query]
-    if len(post) > 0:
-        dictionaries = []
-        for item in post:
-            dictionaries.append(dict(item))
-        return redirect(url_for('results', posts=dictionaries))
+        query = request.args.get('query')
+    if query == None:
+        print("You changed the name of the select list! Change it back to query.")
+    print(query)
+    posts = sheet[query]
+    if len(posts) > 0:
+        return render_template("ResultsPage.html", posts=posts)
     else:
-        return redirect(url_for('results', posts=[]))
+        return render_template("ResultsPage.html")
 
 
 app.run()

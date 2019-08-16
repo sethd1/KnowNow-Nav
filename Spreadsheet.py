@@ -38,7 +38,8 @@ __status__ = "Prototype"
 class Spreadsheet:
     def __init__(self, spreadsheet=DEFAULT_SPREADSHEET, headers=NORM_HEADERS):
         self.real_headers = None
-        self.norm_headers = None
+        self.norm_headers = headers
+        self.headers = None
         self.spreadsheet = []
         self.__index = 0
         if spreadsheet is not None:
@@ -63,7 +64,7 @@ class Spreadsheet:
         return results
 
     def normalize(self, headers):
-        self.norm_headers = headers.values()
+        self.headers = headers.values()
         sheet = []
         for row in self.spreadsheet:
             dictionary = {}
@@ -74,10 +75,10 @@ class Spreadsheet:
 
     def __getitem__(self, item):
         if isinstance(item, str):
-            if self.norm_headers is not None and item in self.norm_headers:
+            if self.headers is not None and item in self.headers:
                 return self.getColumn(item)
-            if item in self.real_headers:
-                return self.getColumn(item)
+            elif item in self.real_headers:
+                return self.getColumn(self.norm_headers[item])
             else:
                 return self.find(item)
         elif isinstance(item, tuple):
