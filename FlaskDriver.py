@@ -45,16 +45,29 @@ sheet = Spreadsheet(DEFAULT_SPREADSHEET, NORM_HEADERS)
 @app.route("/")
 @app.route("/home")
 def home():
+    """
+    Renders the homepage. While the program is running, if a user
+    enters 'localhost:5000/' into their web browser, they'll be
+    rerouted to the homepage: Homepage.html
+    :return:
+    """
     return render_template("Homepage.html")
 
 
 @app.route('/form', methods=['GET', 'POST'])
 def form():
+    """
+    Renders the results page. While the program is running, if a user
+    submits/enters a dropdown menu selection, then enters the submission.
+    This function activates and sends the info stored in the 'posts' variable
+    to the ResultsPage.html.
+    :return:
+    """
     if request.method == 'POST':
         query = request.form('query')
     else:
         query = request.args.get('query')
-    if query is not None:
+    if query is None:
         print("You changed the name of the select list! Change it back to query.")
     posts = sheet[query]
     if len(posts) > 0:

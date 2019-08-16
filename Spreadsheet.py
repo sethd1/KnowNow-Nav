@@ -2,15 +2,17 @@
 
 """Spreadsheet
 
-If the description is long, the first line should be a short summary of Spreadsheet.py
-that makes sense on its own, separated from the rest by a newline.
+Opens a CSV spreadsheet for reading and searching operations.
 """
-
+from prettytable import PrettyTable
 from pathlib import Path
+import string
 import csv
 
+# default required values
 PATH = Path.cwd()
 DEFAULT_SPREADSHEET = "Patient Insights - Insights.csv"
+DEFAULT_TEXT_LENGTH = 30
 NORM_HEADERS = {
     'Topic': 'topic',
     'Date discussion (month/ year)':'date',
@@ -26,6 +28,7 @@ NORM_HEADERS = {
     "Smruti Vidwans comments/ Topics": 'professor_comments'}
 
 
+# program's author information and licenses
 __author__ = "Mauricio Lomeli"
 __date__ = "8/15/2019"
 __license__ = "MIT"
@@ -36,25 +39,45 @@ __status__ = "Prototype"
 
 
 class Spreadsheet:
+    """
+    If DEFAULT_SPREADSHEET and NORM_HEADERS are kept, 'Patient Insights - Insights.csv' will
+    be the CSV that it will be reading. Else, replace with a file in the same directory or specified path.
+    NORM_HEADERS truncates the fieldnames to a single word without spaces, this is important if integrating
+    with flask (can't use the . function on variables with white space).
+
+    Ex:
+        from Spreadsheet import Spreadsheet
+        sheet = Spreadsheet()
+        sheet = Spreadsheet('Patient Insights - Insights.csv')
+        sheet = Spreadsheet('Patient Insights - Insights.csv', NORM_HEADERS) # assume NORM_HEADERS is defined
+
+
+    """
     def __init__(self, spreadsheet=DEFAULT_SPREADSHEET, headers=NORM_HEADERS):
+        self.title = spreadsheet
         self.real_headers = None
         self.norm_headers = headers
         self.headers = None
+        self.book = None
         self.spreadsheet = []
+        self.table = None
         self.__index = 0
         if spreadsheet is not None:
             self.assemble(spreadsheet)
-        if headers is not None:
+        if self.norm_headers is not None:
             self.normalize(headers)
+        else:
+            self.headers = self.real_headers
 
     def assemble(self, spreadsheet):
         with open(Path(spreadsheet), 'r', newline="", encoding="utf-8") as f:
             content = csv.DictReader(f)
             self.real_headers = content.fieldnames
-            self.spreadsheet = [element for element in content]
+            self.book = {header: index for index, header in enumerate(self.real_headers)}
+            self.spreadsheet = [list(element.values()) for element in content]
 
     def getColumn(self, fieldname):
-        return [item[fieldname] for item in self.spreadsheet if fieldname in item]
+        return [item[self.book[fieldname]] for item in self.spreadsheet]
 
     def find(self, value):
         results = []
@@ -63,15 +86,20 @@ class Spreadsheet:
                 results.append(row)
         return results
 
+    def textLength(self, text, length=DEFAULT_TEXT_LENGTH):
+        if isinstance(text, list):
+            return [value[:length] + '...' if len(value) > length else value for value in text]
+        elif isinstance(text, str):
+            if len(text) > length:
+                return text[:length] + '...'
+            else:
+                return text
+        else:
+            return ''
+
     def normalize(self, headers):
-        self.headers = headers.values()
-        sheet = []
-        for row in self.spreadsheet:
-            dictionary = {}
-            for key, value in row.items():
-                dictionary[headers[key]] = value
-            sheet.append(dictionary)
-        self.spreadsheet = sheet
+        self.headers = list(headers.values())
+        self.book = {header: index for index, header in enumerate(self.headers)}
 
     def __getitem__(self, item):
         if isinstance(item, str):
@@ -104,4 +132,11 @@ class Spreadsheet:
         self.__index += 1
         return item
 
-
+    def __str__(self):
+        if self.table is not None:
+            return str(self.table)
+        else:
+            self.table = PrettyTable(self.real_headers)
+            for content in self.spreadsheet:
+                self.table.add_row(self.textLength(content))
+            return str(self.table)
