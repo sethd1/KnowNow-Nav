@@ -33,24 +33,18 @@
 	position: absolute;
 	left: 1156px;
 	top: 269px;
-	width: 284px;
-	height: 1px;
 	z-index: 3;
 }
     #ad2 {
 	position: absolute;
 	left: 1157px;
 	top: 549px;
-	width: 297px;
-	height: 0px;
 	z-index: 4;
 }
     #ad3 {
 	position: absolute;
 	left: 1156px;
 	top: 671px;
-	width: 295px;
-	height: 0px;
 	z-index: 5;
 }
     </style>
@@ -69,18 +63,18 @@
 <div>Previous treatment:</div>
 </div>
 <div id="results">
-    <!-- Topic -->
-    <!-- Date discussion (month/ year) -->
-    <!-- Patient Query/ Inquiry	-->
-    <!-- Specific patient profile -->
-    <!-- Patient cohort (definition) -->
-    <!-- Category tag -->
-    <!-- Secondary tags -->
-    <!-- Patient insight -->
-    <!-- Volunteers -->
-    <!-- Discussion URL -->
-    <!-- Notes/ comments/ questions -->
-    <!-- Smruti Vidwans comments/ Topics -->
+    <!-- topic -->
+    <!-- date -->
+    <!-- query	-->
+    <!-- profile -->
+    <!-- cohort -->
+    <!-- category -->
+    <!-- secondary -->
+    <!-- insight -->
+    <!-- volunteer -->
+    <!-- url -->
+    <!-- comments -->
+    <!-- professor_comments -->
     {% for post in posts %}
       <div class="results">
         <!-- Bootstrap CSS -->
@@ -96,7 +90,7 @@
               <br>
             	{{ post.insight }}
                   <br>
-            	{{ post.cohort }}
+                  <i>{{ post.cohort }}</i>
               </span>
         	</div>
       </div>
@@ -104,9 +98,9 @@
 <br>
 
 </div>
-<div id="ad1"><img src="{{url_for('static', filename='ad1.JPG')}}" width="242" height="252" /></div>
-<div id="ad2"><img src="{{url_for('static', filename='ad2.JPG')}}" width="248" height="108" /></div>
-<div id="ad3"><img src="{{url_for('static', filename='ad3.JPG')}}" width="243" height="148" /></div>
+<img id="ad1" src="{{url_for('static', filename='ad1.JPG')}}" width="400" height="252" />
+<img id="ad2" src="{{url_for('static', filename='ad2.JPG')}}" width="400" height="250" />
+<img id="ad3" src="{{url_for('static', filename='ad3.JPG')}}" width="400" height="250" />
 <img src="{{url_for('static', filename='knownowimg.JPG')}}" width="532" height="144" />
 <strong><font size="+5">Breast Cancer</font></strong>
 <div>
