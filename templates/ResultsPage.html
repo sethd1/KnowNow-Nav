@@ -26,7 +26,7 @@
 	left: 338px;
 	top: 265px;
 	width: 790px;
-	height: 441px;
+	height: 0px;
 	z-index: 2;
 }
     #ad1 {
@@ -34,23 +34,23 @@
 	left: 1156px;
 	top: 269px;
 	width: 284px;
-	height: 195px;
+	height: 1px;
 	z-index: 3;
 }
     #ad2 {
 	position: absolute;
 	left: 1157px;
-	top: 481px;
+	top: 549px;
 	width: 297px;
-	height: 129px;
+	height: 0px;
 	z-index: 4;
 }
     #ad3 {
 	position: absolute;
-	left: 1158px;
-	top: 619px;
+	left: 1156px;
+	top: 671px;
 	width: 295px;
-	height: 90px;
+	height: 0px;
 	z-index: 5;
 }
     </style>
@@ -104,10 +104,10 @@
 <br>
 
 </div>
-<div id="ad1"><img src="ad1.JPG" width="242" height="252" /></div>
-<div id="ad2"><img src="ad2.JPG" width="248" height="108" /></div>
-<div id="ad3"><img src="ad3.JPG" width="243" height="148" /></div>
-<img src="knownowimg.JPG" width="532" height="144" />
+<div id="ad1"><img src="{{url_for('static', filename='ad1.JPG')}}" width="242" height="252" /></div>
+<div id="ad2"><img src="{{url_for('static', filename='ad2.JPG')}}" width="248" height="108" /></div>
+<div id="ad3"><img src="{{url_for('static', filename='ad3.JPG')}}" width="243" height="148" /></div>
+<img src="{{url_for('static', filename='knownowimg.JPG')}}" width="532" height="144" />
 <strong><font size="+5">Breast Cancer</font></strong>
 <div>
 

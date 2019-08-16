@@ -56,7 +56,6 @@ def form():
         query = request.args.get('query')
     if query == None:
         print("You changed the name of the select list! Change it back to query.")
-    print(query)
     posts = sheet[query]
     if len(posts) > 0:
         return render_template("ResultsPage.html", posts=posts)
