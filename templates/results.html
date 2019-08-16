@@ -1,0 +1,13 @@
+{% extends "layout.html"}
+{% block content %}
+
+<!-- not sure how the posts dictionary is formatted - Joshua-->
+
+<div class="mainContainer">
+    {% for post in posts %}
+        <h1>{{post['topic']}}</h1>
+        <p>{{post['Patient insight']}}</p>
+    {% endfor %}    
+</div>
+
+{% endblock content %}
