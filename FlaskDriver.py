@@ -54,7 +54,7 @@ def form():
         query = request.form('query')
     else:
         query = request.args.get('query')
-    if query == None:
+    if query is not None:
         print("You changed the name of the select list! Change it back to query.")
     posts = sheet[query]
     if len(posts) > 0:
