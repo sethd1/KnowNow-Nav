@@ -11,6 +11,20 @@ import csv
 
 PATH = Path.cwd()
 DEFAULT_SPREADSHEET = "Patient Insights - Insights.csv"
+NORM_HEADERS = {
+    'Topic': 'topic',
+    'Date discussion (month/ year)':'date',
+    'Patient Query/ Inquiry':'query',
+    'Specific patient profile':'profile',
+    'Patient cohort (definition)':'cohort',
+    'Category tag':'category',
+    'Secondary tags':'secondary',
+    'Patient insight':'insights',
+    'Volunteers':'volunteers',
+    'Discussion URL':'url',
+    'Notes/ comments/ questions':'comments',
+    "Smruti Vidwans comments/ Topics": 'professor_comments'}
+
 
 __author__ = "Mauricio Lomeli"
 __date__ = "8/15/2019"
@@ -22,17 +36,20 @@ __status__ = "Prototype"
 
 
 class Spreadsheet:
-    def __init__(self, spreadsheet=DEFAULT_SPREADSHEET):
-        self.headers = None
+    def __init__(self, spreadsheet=DEFAULT_SPREADSHEET, headers=NORM_HEADERS):
+        self.real_headers = None
+        self.norm_headers = None
         self.spreadsheet = []
         self.__index = 0
         if spreadsheet is not None:
             self.assemble(spreadsheet)
+        if headers is not None:
+            self.normalize(headers)
 
     def assemble(self, spreadsheet):
         with open(Path(spreadsheet), 'r', newline="", encoding="utf-8") as f:
             content = csv.DictReader(f)
-            self.headers = content.fieldnames
+            self.real_headers = content.fieldnames
             self.spreadsheet = [element for element in content]
 
     def getColumn(self, fieldname):
@@ -45,9 +62,21 @@ class Spreadsheet:
                 results.append(row)
         return results
 
+    def normalize(self, headers):
+        self.norm_headers = headers.values()
+        sheet = []
+        for row in self.spreadsheet:
+            dictionary = {}
+            for key, value in row.items():
+                dictionary[headers[key]] = value
+            sheet.append(dictionary)
+        self.spreadsheet = sheet
+
     def __getitem__(self, item):
         if isinstance(item, str):
-            if item in self.headers:
+            if self.norm_headers is not None and item in self.norm_headers:
+                return self.getColumn(item)
+            if item in self.real_headers:
                 return self.getColumn(item)
             else:
                 return self.find(item)
