@@ -9,6 +9,8 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Custom position for info side, main info, and ad positions -->
     <style type="text/css">
 	#tabing {
 		padding-right: 5px;
@@ -52,7 +54,10 @@
     <title>KnowKnow</title>
 </head>
 
+<!-- all information is posted here -->
 <body>
+
+<!-- the info 'bar?' on the left side goes here -->
 <div id="info">
 <div>Tell us about your cancer <br />so we can refine our results.</div>
 <br />
@@ -62,6 +67,10 @@
 <br  />
 <div>Previous treatment:</div>
 </div>
+
+
+
+<!-- this is the results page. All important information to display goes here. -->
 <div id="results">
     <!-- topic -->
     <!-- date -->
@@ -98,30 +107,38 @@
 <br>
 
 </div>
+
+<!-- these are the images for the webpage -->
 <img id="ad1" src="{{url_for('static', filename='ad1.JPG')}}" width="400" height="252" />
 <img id="ad2" src="{{url_for('static', filename='ad2.JPG')}}" width="400" height="250" />
 <img id="ad3" src="{{url_for('static', filename='ad3.JPG')}}" width="400" height="250" />
 <img src="{{url_for('static', filename='knownowimg.JPG')}}" width="532" height="144" />
 <strong><font size="+5">Breast Cancer</font></strong>
-<div>
 
+
+<!-- this is the form which triggers the selection process -->
 <form action="http://127.0.0.1:5000/form" method="get" id="search_form" name="search_form">
     <label id="tabing"> Side effects : Heart disease </label>
-<select name="query">
-	<option value="84 yr old Mom, Stage 2, Lymph node, CHEMO normal?" > 84 yr old Mom, Stage 2, Lymph node, CHEMO normal? </option>
-    <option value="Confused as why everyone seems to have surgery first" > Confused as why everyone seems to have surgery first </option>
-    <option value="Chemotherapy for my Mom at Stage II-B, how to ease the pain?" > Chemotherapy for my Mom at Stage II-B, how to ease the pain? </option>
-</select>
-<input type="submit" name="search_button" id="search_button" value="Enter" onclick=""/> </form>
-<div id="sideinfo">
- 
+
+    <!-- name must be 'query' if anyone decides to change it, it must be changed in FlaskDriver as well. -->
+    <select name="query">
+	    <option value="84 yr old Mom, Stage 2, Lymph node, CHEMO normal?" >
+            84 yr old Mom, Stage 2, Lymph node, CHEMO normal? </option>
+        <option value="Confused as why everyone seems to have surgery first" >
+            Confused as why everyone seems to have surgery first </option>
+        <option value="Chemotherapy for my Mom at Stage II-B, how to ease the pain?" >
+            Chemotherapy for my Mom at Stage II-B, how to ease the pain? </option>
+    </select>
+    <input type="submit" name="search_button" id="search_button" value="Enter" onclick=""/> </form>
+
+
+<!-- these are the containers of where to place the boundaries of the website. found in style tag in header tag -->
 </div>
-<div id="results"></div>
-<div id="ad1"></div>
-<div id="ad2"></div>
-<div id="ad3"></div>
+    <div id="results"></div>
+    <div id="ad1"></div>
+    <div id="ad2"></div>
+    <div id="ad3"></div>
 </div>
-<div></div>
 
 </body>
 </html>
