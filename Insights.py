@@ -1,8 +1,8 @@
 # !/usr/bin/env python
 
-"""Insights
+"""Spreadsheet
 
-If the description is long, the first line should be a short summary of Insights.py
+If the description is long, the first line should be a short summary of Spreadsheet.py
 that makes sense on its own, separated from the rest by a newline.
 """
 
