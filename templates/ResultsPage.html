@@ -15,6 +15,10 @@
 	#tabing {
 		padding-right: 5px;
 	}
+    #cohort {
+        size: 5px;
+        color: #78b6ff;
+    }
     #info {
 	position: absolute;
 	left: 27px;
@@ -95,13 +99,14 @@
           <div> {{ post.url }} </div>
           </a>
           	<div>
-              <span>
+              <p><span>
+              {{ post.insight }}
               <br>
-            	{{ post.insight }}
-                  <br>
-                  <i>{{ post.cohort }}</i>
+                <i id="cohort">{{ post.cohort }}</i>
               </span>
-        	</div>
+              </p>
+              <p>&nbsp;</p>
+          	</div>
       </div>
     {% endfor %}
 <br>

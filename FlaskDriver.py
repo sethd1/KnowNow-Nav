@@ -54,8 +54,12 @@ def home():
     # removes duplicates and empty responses
     query = [item for item in set(sheet['query']) if item != '']
 
+    # remove this when final, it is only for displaying purposes.
+    query += ['Encouragement'] + ['Specific Conditions'] + ['Stage II BC']
+
     # returns a list(tuple) of (truncated text, full text)
     pair = list(zip(sheet.textLength(query, 50), query))
+
 
     return render_template("Homepage.html", pair=pair)
 
@@ -73,10 +77,12 @@ def form():
         query = request.form('query')
     else:
         query = request.args.get('query')
+
     if query is None:
         print("You changed the name of the select list! Change it back to query.")
-    print(query)
+
     posts = sheet.convertToDict(sheet[query])
+
     if len(posts) > 0:
         query = [item for item in sheet['query'] if item != '']
         pair = list(zip(sheet.textLength(query, 50), query))
