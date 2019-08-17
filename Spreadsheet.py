@@ -61,7 +61,6 @@ class Spreadsheet:
         self.headers = None
         self.book = None
         self.spreadsheet = []
-        self.table = None
         self.__index = 0
         if spreadsheet is not None:
             self.assemble(spreadsheet)
@@ -159,13 +158,12 @@ class Spreadsheet:
         pass
 
     def __str__(self):
-        if self.table is not None:
-            return str(self.table)
-        else:
-            self.table = PrettyTable(self.real_headers)
-            for content in self.spreadsheet:
-                self.table.add_row(self.textLength(content))
-            return str(self.table)
+        table = PrettyTable(self.real_headers)
+        for head in self.real_headers:
+            table.align[head] = 'l'
+        for content in self.spreadsheet:
+            table.add_row(self.textLength(content))
+        return str(table)
 
 
 if __name__ == '__main__':
