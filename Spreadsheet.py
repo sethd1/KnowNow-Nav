@@ -105,6 +105,19 @@ class Spreadsheet:
         self.headers = list(headers.values())
         self.book = {header: index for index, header in enumerate(self.headers)}
 
+    def max_results(self, min_value=4):
+        omit = list(set(self['volunteers'] + self['comments'] + self['professor_comments']))
+        items = set([x for element in self.spreadsheet for x in element if x not in omit])
+        dict_items = {}
+        for element in items:
+            length = len(sheet[element])
+            if length > min_value:
+                if length not in dict_items:
+                    dict_items[length] = [element]
+                else:
+                    dict_items[length].append(element)
+        return dict_items
+
     def __contains__(self, item):
         if item in self.real_headers:
             return True
@@ -167,12 +180,26 @@ class Spreadsheet:
 
 
 if __name__ == '__main__':
-    print("Initializing with arguments: Spreadsheet(DEFAULT_SPREADSHEET, NORM_HEADERS)")
+    print('\033[92m' + "Initializing with arguments: Spreadsheet(DEFAULT_SPREADSHEET, NORM_HEADERS)" + '\033[0m')
     sheet = Spreadsheet(DEFAULT_SPREADSHEET, NORM_HEADERS)
     sheet = Spreadsheet(DEFAULT_SPREADSHEET, NORM_HEADERS)
-    print("Initializing default constructor: Spreadsheet()")
+
+    print('\033[92m' + "Initializing default constructor: Spreadsheet()" + '\033[0m')
     sheet = Spreadsheet()
 
-    print("Iterating through Spreadsheet")
+    print('\033[92m' + "Iterating through first 3 rows in Spreadsheet" + '\033[0m')
     for row in sheet[:3]:
         print(row)
+
+    print('\033[92m' + "Find row with 'Specific Therapy Inquries'" + '\033[0m')
+    print(sheet['Specific Therapy Inquries'])
+
+    print('\033[92m' + "Find something that doesn't exist" + '\033[0m')
+    print(sheet['it shouldnt exist'])
+
+    print('\033[92m' + "First item in the Spreadsheet" + '\033[0m')
+    print(sheet[0])
+
+    response = input('\033[31m' + "Would you like to print the table?" + '\033[0m')
+    if 'y' in response.lower():
+        print(sheet)

@@ -21,9 +21,9 @@
 <center>
 <form action="http://127.0.0.1:5000/form" id="search_form" name="search_form" method="get">
 <select name="query">
-	<option value="84 yr old Mom, Stage 2, Lymph node, CHEMO normal?" > 84 yr old Mom, Stage 2, Lymph node, CHEMO normal? </option>
-    <option value="Confused as why everyone seems to have surgery first" > Confused as why everyone seems to have surgery first </option>
-    <option value="Chemotherapy for my Mom at Stage II-B, how to ease the pain?" > Chemotherapy for my Mom at Stage II-B, how to ease the pain? </option>
+    {% for text, value in pair %}
+        <option value="{{ value }}" > {{ text }} </option>
+    {% endfor %}
 </select>
 <input type="submit" name="search_button" id="search_button" value="Enter" onclick=""/>
 </form>

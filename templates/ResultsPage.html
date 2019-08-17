@@ -24,12 +24,13 @@
 	z-index: 1;
 }
     #results {
-	position: absolute;
-	left: 338px;
-	top: 265px;
-	width: 790px;
-	height: 0px;
-	z-index: 2;
+	    position: absolute;
+	    left: 338px;
+	    top: 265px;
+        bottom: 100px;
+	    width: 790px;
+	    height: 0px;
+	    z-index: 2;
 }
     #ad1 {
 	position: absolute;
@@ -95,7 +96,6 @@
           </a>
           	<div>
               <span>
-                  <b>{{ post.volunteers }}</b>
               <br>
             	{{ post.insight }}
                   <br>
@@ -122,12 +122,9 @@
 
     <!-- name must be 'query' if anyone decides to change it, it must be changed in FlaskDriver as well. -->
     <select name="query">
-	    <option value="84 yr old Mom, Stage 2, Lymph node, CHEMO normal?" >
-            84 yr old Mom, Stage 2, Lymph node, CHEMO normal? </option>
-        <option value="Confused as why everyone seems to have surgery first" >
-            Confused as why everyone seems to have surgery first </option>
-        <option value="Chemotherapy for my Mom at Stage II-B, how to ease the pain?" >
-            Chemotherapy for my Mom at Stage II-B, how to ease the pain? </option>
+        {% for text, value in pair %}
+            <option value="{{ value }}" > {{ text }} </option>
+        {% endfor %}
     </select>
     <input type="submit" name="search_button" id="search_button" value="Enter" onclick=""/> </form>
 

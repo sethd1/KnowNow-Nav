@@ -51,7 +51,13 @@ def home():
     rerouted to the homepage: Homepage.html
     :return:
     """
-    return render_template("Homepage.html")
+    # removes duplicates and empty responses
+    query = [item for item in set(sheet['query']) if item != '']
+
+    # returns a list(tuple) of (truncated text, full text)
+    pair = list(zip(sheet.textLength(query, 50), query))
+
+    return render_template("Homepage.html", pair=pair)
 
 
 @app.route('/form', methods=['GET', 'POST'])
@@ -69,9 +75,12 @@ def form():
         query = request.args.get('query')
     if query is None:
         print("You changed the name of the select list! Change it back to query.")
-    posts = sheet[query]
+    print(query)
+    posts = sheet.convertToDict(sheet[query])
     if len(posts) > 0:
-        return render_template("ResultsPage.html", posts=posts)
+        query = [item for item in sheet['query'] if item != '']
+        pair = list(zip(sheet.textLength(query, 50), query))
+        return render_template("ResultsPage.html", posts=posts, pair=pair)
     else:
         return render_template("ResultsPage.html")
 
