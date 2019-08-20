@@ -75,10 +75,13 @@ class Spreadsheet:
         return [item[self.__book[fieldname]] for item in self.__spreadsheet]
 
     def find(self, value):
-        return [row for row in self.__spreadsheet if value in row]
+        return [rows for rows in self.__spreadsheet if value in rows]
 
-    def convertToDict(self, item):
-        if isinstance(item, list) and len(item) > 0:
+    def convertToDict(self, item=None):
+        if item is None:
+            columns = [self[col] for col in self.headers]
+            return dict(zip(sheet.headers, columns))
+        elif isinstance(item, list) and len(item) > 0:
             if isinstance(item[0], list) and len(item[0]) > 0:
                 return [dict(zip(self.headers, value)) for value in item]
             elif not isinstance(item[0], list):
