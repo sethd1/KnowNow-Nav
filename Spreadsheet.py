@@ -71,6 +71,51 @@ class Spreadsheet:
         else:
             self.headers = self.real_headers
 
+    def exists(self, item):
+        if item is None:
+            return self.__spreadsheet is not None
+        else:
+            return self.has(item)
+
+    def has(self, item):
+        if isinstance(item, str):
+            if item in self.headers or item in self.real_headers:
+                return True
+            elif len(self[item]) > 0:
+                return True
+            else:
+                return False
+        elif isinstance(item, list):
+            length = len(item)
+            if length == len(self.headers):
+                for rows in self.__spreadsheet:
+                    if item == rows:
+                        return True
+            else:
+                has_all = True
+                for individual in item:
+                    if not self.has(individual):
+                        return False
+                return has_all
+        elif isinstance(item, dict):
+            has_all = True
+            for keys in item.values():
+                if not self.has(keys):
+                    return False
+                elif not self.has['keys']:
+                    return False
+            return has_all
+        else:
+            return False
+
+    def at(self, item):
+        #TODO: get the index of an item
+        #TODO: if entire row matches, get the row index
+        #TODO: if only one field matches, get the row,column tuple
+        #TODO: if part of the field matches, get the sliced ([:,1] or [2,4])
+        #TODO: to return slice, return s = slice(2, 4) or return (s.start, s.stop)
+        return None
+
     def getColumn(self, fieldname):
         return [item[self.__book[fieldname]] for item in self.__spreadsheet]
 
