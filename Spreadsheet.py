@@ -51,36 +51,31 @@ class Spreadsheet:
         sheet = Spreadsheet()
         sheet = Spreadsheet('Patient Insights - Insights.csv')
         sheet = Spreadsheet('Patient Insights - Insights.csv', NORM_HEADERS) # assume NORM_HEADERS is defined
-
-
+        sheet['topic'] = ['About to start Radiation ... Need advice on what to expect', 'Afinitor T...
+        sheet[0] = ['About to start Radiation ... Need advice on what to expect', 'Dec 2016...
+        [row for row in sheet] -> [['About to start Radiation ... Need advice on what to expect', 'Dec 2016', 'what...
+        print(sheet)
     """
     def __init__(self, spreadsheet=DEFAULT_SPREADSHEET, headers=NORM_HEADERS):
-        self.title = spreadsheet
+        self.name = spreadsheet
         self.real_headers = None
         self.norm_headers = headers
         self.headers = None
-        self.book = None
-        self.spreadsheet = []
+        self.__book = None
+        self.__spreadsheet = []
         self.__index = 0
         if spreadsheet is not None:
-            self.assemble(spreadsheet)
+            self.__assemble(spreadsheet)
         if self.norm_headers is not None:
-            self.normalize(headers)
+            self.__normalize(headers)
         else:
             self.headers = self.real_headers
 
-    def assemble(self, spreadsheet):
-        with open(Path(spreadsheet), 'r', newline="", encoding="utf-8") as f:
-            content = csv.DictReader(f)
-            self.real_headers = content.fieldnames
-            self.book = {header: index for index, header in enumerate(self.real_headers)}
-            self.spreadsheet = [list(element.values()) for element in content]
-
     def getColumn(self, fieldname):
-        return [item[self.book[fieldname]] for item in self.spreadsheet]
+        return [item[self.__book[fieldname]] for item in self.__spreadsheet]
 
     def find(self, value):
-        return [row for row in self.spreadsheet if value in row]
+        return [row for row in self.__spreadsheet if value in row]
 
     def convertToDict(self, item):
         if isinstance(item, list) and len(item) > 0:
@@ -101,13 +96,9 @@ class Spreadsheet:
         else:
             return ''
 
-    def normalize(self, headers):
-        self.headers = list(headers.values())
-        self.book = {header: index for index, header in enumerate(self.headers)}
-
     def max_results(self, min_value=4):
         omit = list(set(self['volunteers'] + self['comments'] + self['professor_comments']))
-        items = set([x for element in self.spreadsheet for x in element if x not in omit])
+        items = set([x for element in self.__spreadsheet for x in element if x not in omit])
         dict_items = {}
         for element in items:
             length = len(sheet[element])
@@ -118,11 +109,22 @@ class Spreadsheet:
                     dict_items[length].append(element)
         return dict_items
 
+    def __assemble(self, spreadsheet):
+        with open(Path(spreadsheet), 'r', newline="", encoding="utf-8") as f:
+            content = csv.DictReader(f)
+            self.real_headers = content.fieldnames
+            self.__book = {header: index for index, header in enumerate(self.real_headers)}
+            self.__spreadsheet = [list(element.values()) for element in content]
+
+    def __normalize(self, headers):
+        self.headers = list(headers.values())
+        self.__book = {header: index for index, header in enumerate(self.headers)}
+
     def __contains__(self, item):
         if item in self.real_headers:
             return True
         else:
-            for row in self.spreadsheet:
+            for row in self.__spreadsheet:
                 if item in row:
                     return True
         return False
@@ -138,23 +140,23 @@ class Spreadsheet:
         elif isinstance(item, tuple):
             pos1, pos2 = item
             if isinstance(pos1, str) and isinstance(pos2, str):
-                return [element.values() for element in self.spreadsheet if element[pos1] == pos2]
+                return [element.values() for element in self.__spreadsheet if element[pos1] == pos2]
             elif isinstance(pos1, int) and isinstance(pos2, str):
-                return self.spreadsheet[pos1 - 1][pos2]
+                return self.__spreadsheet[pos1 - 1][pos2]
         elif isinstance(item, int) or isinstance(item, slice):
-            return self.spreadsheet[item]
+            return self.__spreadsheet[item]
 
     def __len__(self):
-        return len(self.spreadsheet)
+        return len(self.__spreadsheet)
 
     def __iter__(self):
         self.__index = 0
         return self
 
     def __next__(self):
-        if self.__index >= len(self.spreadsheet):
+        if self.__index >= len(self.__spreadsheet):
             raise StopIteration
-        item = self.spreadsheet[self.__index]
+        item = self.__spreadsheet[self.__index]
         self.__index += 1
         return item
 
@@ -163,19 +165,19 @@ class Spreadsheet:
             content = csv.DictReader(f)
             for element in content:
                 temp = list(element.values())
-                if temp not in self.spreadsheet:
-                    self.spreadsheet.append(temp)
+                if temp not in self.__spreadsheet:
+                    self.__spreadsheet.append(temp)
 
     def __format__(self, format_spec):
         #TODO: "Sheet has at columns topic: {a}".format('column')"
         pass
 
     def __str__(self):
-        table = PrettyTable(self.real_headers)
+        table = PrettyTable(['index'] + self.real_headers)
         for head in self.real_headers:
             table.align[head] = 'l'
-        for content in self.spreadsheet:
-            table.add_row(self.textLength(content))
+        for i, content in enumerate(self.__spreadsheet):
+            table.add_row([str(i)] + self.textLength(content))
         return str(table)
 
 
