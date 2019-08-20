@@ -71,7 +71,7 @@ class Spreadsheet:
         else:
             self.headers = self.real_headers
 
-    def exists(self, item):
+    def exists(self, item=None):
         if item is None:
             return self.__spreadsheet is not None
         else:
@@ -81,34 +81,46 @@ class Spreadsheet:
         if isinstance(item, str):
             if item in self.headers or item in self.real_headers:
                 return True
-            elif len(self[item]) > 0:
-                return True
             else:
+                for rows in self.__spreadsheet:
+                    if item in rows:
+                        return True
                 return False
         elif isinstance(item, list):
-            length = len(item)
-            if length == len(self.headers):
+            if len(item) == 0:
+                return False
+            elif isinstance(item[0], str):
+                items_non_headers = [e for e in item if e not in self.headers and e not in self.real_headers]
+                result = dict(zip(items_non_headers, [False]*len(items_non_headers)))
                 for rows in self.__spreadsheet:
-                    if item == rows:
+                    for element in items_non_headers:
+                        if element in rows:
+                            result[element] = True
+                    if all(result.values()):
                         return True
+                return False
             else:
-                has_all = True
-                for individual in item:
-                    if not self.has(individual):
-                        return False
-                return has_all
+                return self.__has_all(item)
         elif isinstance(item, dict):
+            if len(item) == 0:
+                return False
             has_all = True
             for keys in item.values():
-                if not self.has(keys):
+                if keys not in self.headers or keys not in self.real_headers:
                     return False
-                elif not self.has['keys']:
-                    return False
+                else:
+                    if isinstance(item[keys], list):
+                        for rows in item[keys]:
+                            if rows not in self[keys]:
+                                return False
+                    elif isinstance(item[keys], str):
+                        if not item[keys] in self[keys]:
+                            return False
             return has_all
         else:
             return False
 
-    def at(self, item):
+    def __at(self, item):
         #TODO: get the index of an item
         #TODO: if entire row matches, get the row index
         #TODO: if only one field matches, get the row,column tuple
@@ -125,7 +137,7 @@ class Spreadsheet:
     def convertToDict(self, item=None):
         if item is None:
             columns = [self[col] for col in self.headers]
-            return dict(zip(sheet.headers, columns))
+            return dict(zip(self.headers, columns))
         elif isinstance(item, list) and len(item) > 0:
             if isinstance(item[0], list) and len(item[0]) > 0:
                 return [dict(zip(self.headers, value)) for value in item]
@@ -149,13 +161,20 @@ class Spreadsheet:
         items = set([x for element in self.__spreadsheet for x in element if x not in omit])
         dict_items = {}
         for element in items:
-            length = len(sheet[element])
+            length = len(self.find([element]))
             if length > min_value:
                 if length not in dict_items:
                     dict_items[length] = [element]
                 else:
                     dict_items[length].append(element)
         return dict_items
+
+    def __has_all(self, item):
+        has_all = True
+        for index in item:
+            if not self.has(index):
+                return False
+        return has_all
 
     def __assemble(self, spreadsheet):
         with open(Path(spreadsheet), 'r', newline="", encoding="utf-8") as f:
@@ -169,13 +188,7 @@ class Spreadsheet:
         self.__book = {header: index for index, header in enumerate(self.headers)}
 
     def __contains__(self, item):
-        if item in self.real_headers:
-            return True
-        else:
-            for row in self.__spreadsheet:
-                if item in row:
-                    return True
-        return False
+        return self.has(item)
 
     def __getitem__(self, item):
         if isinstance(item, str):
@@ -229,27 +242,43 @@ class Spreadsheet:
         return str(table)
 
 
+def main():
+    try:
+        message = "Initializing with arguments: Spreadsheet(DEFAULT_SPREADSHEET, NORM_HEADERS)"
+        sheet = Spreadsheet(DEFAULT_SPREADSHEET, NORM_HEADERS)
+        print('\033[1m' + '\033[92m' + "PASS: " + message + '\033[0m')
+
+        message = "Initializing default constructor: Spreadsheet()"
+        sheet = Spreadsheet()
+        print('\033[1m' + '\033[92m' + "PASS: " + message + '\033[0m')
+
+        message = "Iterating through first 3 rows in Spreadsheet"
+        assert len(sheet[:3]) == 3
+        for row in sheet[:3]:
+            pass
+        print('\033[1m' + '\033[92m' + "PASS: " + message + '\033[0m')
+
+        message = "Find row with 'Specific Therapy Inquries'"
+        assert len(sheet['Specific Therapy Inquries']) > 0
+        print('\t' + str(sheet['Specific Therapy Inquries']))
+        print('\033[1m' + '\033[92m' + "PASS: " + message + '\033[0m')
+
+        message = "Find something that doesn't exist"
+        assert len(sheet['it shouldnt exist']) == 0
+        print('\033[1m' + '\033[92m' + "PASS: " + message + '\033[0m')
+
+        message = "First item in the Spreadsheet"
+        print('\t' + str(sheet[0]))
+        print('\033[1m' + '\033[92m' + "PASS: " + message + '\033[0m')
+
+        message = "Printing the table"
+        response = input("Would you like to print the table?")
+        if 'y' in response.lower():
+            print(sheet)
+
+    except Exception:
+        print('\033[1m' + '\033[31m' + "FAIL:" + message + '\033[0m')
+
+
 if __name__ == '__main__':
-    print('\033[92m' + "Initializing with arguments: Spreadsheet(DEFAULT_SPREADSHEET, NORM_HEADERS)" + '\033[0m')
-    sheet = Spreadsheet(DEFAULT_SPREADSHEET, NORM_HEADERS)
-    sheet = Spreadsheet(DEFAULT_SPREADSHEET, NORM_HEADERS)
-
-    print('\033[92m' + "Initializing default constructor: Spreadsheet()" + '\033[0m')
-    sheet = Spreadsheet()
-
-    print('\033[92m' + "Iterating through first 3 rows in Spreadsheet" + '\033[0m')
-    for row in sheet[:3]:
-        print(row)
-
-    print('\033[92m' + "Find row with 'Specific Therapy Inquries'" + '\033[0m')
-    print(sheet['Specific Therapy Inquries'])
-
-    print('\033[92m' + "Find something that doesn't exist" + '\033[0m')
-    print(sheet['it shouldnt exist'])
-
-    print('\033[92m' + "First item in the Spreadsheet" + '\033[0m')
-    print(sheet[0])
-
-    response = input('\033[31m' + "Would you like to print the table?" + '\033[0m')
-    if 'y' in response.lower():
-        print(sheet)
+    main()
