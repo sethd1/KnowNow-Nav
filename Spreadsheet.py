@@ -15,22 +15,22 @@ PATH = Path.cwd()
 DEFAULT_SPREADSHEET = "Patient Insights - Insights.csv"
 DEFAULT_TEXT_LENGTH = 30
 NORM_HEADERS = {
-    'Topic': 'topic',
-    'Date discussion (month/ year)':'date',
-    'Patient Query/ Inquiry':'query',
-    'Specific patient profile':'profile',
+    'Topic': 'topics',
+    'Date discussion (month/ year)':'dates',
+    'Patient Query/ Inquiry':'queries',
+    'Specific patient profile':'patient_profile',
     'Patient cohort (definition)':'cohort',
     'Category tag':'category',
-    'Secondary tags':'secondary',
+    'Secondary tags':'secondary_tags',
     'Patient insight':'insights',
     'Volunteers':'volunteers',
     'Discussion URL':'url',
     'Notes/ comments/ questions':'comments',
-    "Smruti Vidwans comments/ Topics": 'professor_comments'}
-
+    "Smruti Vidwans comments/ Topics": 'professor_comment'}
 
 # program's author information and licenses
 __author__ = "Mauricio Lomeli"
+__authors__ = "Shiyu Qiu, Jennifer Kwon, Anne Wang, Derek Eijansantos, Dhruv Seth"
 __date__ = "8/15/2019"
 __license__ = "MIT"
 __version__ = "0.0.0.1"
