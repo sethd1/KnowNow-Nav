@@ -11,7 +11,7 @@ from flask import Flask, render_template, url_for, redirect, request, session
 from Spreadsheet import Spreadsheet
 
 PATH = Path.cwd()
-DEFAULT_SPREADSHEET = "Patient Insights - Insights.csv"
+DEFAULT_SPREADSHEET = PATH / Path('data') / Path("Patient Insights - Insights.csv")
 NORM_HEADERS = {
     'Topic': 'topics',
     'Date discussion (month/ year)':'dates',
