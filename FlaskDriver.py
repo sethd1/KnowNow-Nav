@@ -26,15 +26,15 @@ NORM_HEADERS = {
     'Notes/ comments/ questions':'comments',
     "Smruti Vidwans comments/ Topics": 'professor_comment'}
 
+# program's author information and licenses
 __author__ = "Mauricio Lomeli"
+__authors__ = "Shiyu Qiu, Jennifer Kwon, Anne Wang, Derek Eijansantos, Dhruv Seth"
 __date__ = "8/15/2019"
-__copyright__ = "Copyright 2019, KnowNow-Nav"
 __license__ = "MIT"
 __version__ = "0.0.0.1"
 __maintainer__ = "Mauricio Lomeli"
 __email__ = "mjlomeli@uci.edu"
 __status__ = "Prototype"
-
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
