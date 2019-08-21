@@ -52,9 +52,13 @@ class Spreadsheet:
         sheet = Spreadsheet('Patient Insights - Insights.csv')
         sheet = Spreadsheet('Patient Insights - Insights.csv', NORM_HEADERS) # assume NORM_HEADERS is defined
 
-
     """
     def __init__(self, spreadsheet=DEFAULT_SPREADSHEET, headers=NORM_HEADERS):
+        """
+        Initializes the Spreadsheet.
+        :param spreadsheet: the path of the csv file, else the default file is ued.
+        :param headers: normalized headers (conversion of the csv headers to truncated names).
+        """
         self.title = spreadsheet
         self.real_headers = None
         self.norm_headers = headers
@@ -70,6 +74,11 @@ class Spreadsheet:
             self.headers = self.real_headers
 
     def assemble(self, spreadsheet):
+        """
+
+        :param spreadsheet:
+        :return:
+        """
         with open(Path(spreadsheet), 'r', newline="", encoding="utf-8") as f:
             content = csv.DictReader(f)
             self.real_headers = content.fieldnames

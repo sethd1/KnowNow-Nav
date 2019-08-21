@@ -13,14 +13,14 @@ from Spreadsheet import Spreadsheet
 PATH = Path.cwd()
 DEFAULT_SPREADSHEET = "Patient Insights - Insights.csv"
 NORM_HEADERS = {
-    'Topic': 'topic',
-    'Date discussion (month/ year)':'date',
-    'Patient Query/ Inquiry':'query',
-    'Specific patient profile':'profile',
+    'Topic': 'topics',
+    'Date discussion (month/ year)':'dates',
+    'Patient Query/ Inquiry':'queries',
+    'Specific patient profile':'patient_profile',
     'Patient cohort (definition)':'cohort',
     'Category tag':'category',
-    'Secondary tags':'secondary',
-    'Patient insight':'insight',
+    'Secondary tags':'secondary_tags',
+    'Patient insight':'insights',
     'Volunteers':'volunteers',
     'Discussion URL':'url',
     'Notes/ comments/ questions':'comments',
